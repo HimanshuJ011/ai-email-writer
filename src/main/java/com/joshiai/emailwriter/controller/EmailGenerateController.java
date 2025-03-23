@@ -3,15 +3,17 @@ package com.joshiai.emailwriter.controller;
 import com.joshiai.emailwriter.EmailRequest;
 import com.joshiai.emailwriter.service.EmailGeneratorService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/email")
-//@AllArgsConstructor
+@AllArgsConstructor
 @CrossOrigin(origins = "*")
 public class EmailGenerateController {
 
+    @Autowired
     private final EmailGeneratorService emailGeneratorService;
 
     public EmailGenerateController(EmailGeneratorService emailGeneratorService) {

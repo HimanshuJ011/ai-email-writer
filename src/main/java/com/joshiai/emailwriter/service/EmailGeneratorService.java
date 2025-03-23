@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.joshiai.emailwriter.EmailRequest;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -12,13 +14,15 @@ import java.util.Map;
 @Service
 public class EmailGeneratorService {
 
+
     private final WebClient webClient;
 
     @Value("${gemini.url}")
-    private String geminiUrl ;
+    private String geminiUrl;
     @Value("${gemini.apiKey}")
 
-    private String geminiApiKey ;
+    private String geminiApiKey;
+
 
     public EmailGeneratorService(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.build();
@@ -38,7 +42,7 @@ public class EmailGeneratorService {
         // Req and Res
 
         String response = webClient.post()
-                .uri(geminiUrl+geminiApiKey)
+                .uri(geminiUrl + geminiApiKey)
                 .header("Content-Type", "application/json")
                 .bodyValue(reqBody)
                 .retrieve()
@@ -50,14 +54,14 @@ public class EmailGeneratorService {
     }
 
     private String extractResponseContent(String response) {
-        try{
+        try {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode rootNode = mapper.readTree(response);
             return rootNode.path("candidates")
                     .get(0)
                     .path("content")
                     .path("parts").get(0).path("text").asText();
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
