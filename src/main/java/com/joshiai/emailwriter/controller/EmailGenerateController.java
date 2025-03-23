@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 public class EmailGenerateController {
 
-    @Autowired
     private final EmailGeneratorService emailGeneratorService;
 
+    @Autowired
     public EmailGenerateController(EmailGeneratorService emailGeneratorService) {
         this.emailGeneratorService = emailGeneratorService;
     }

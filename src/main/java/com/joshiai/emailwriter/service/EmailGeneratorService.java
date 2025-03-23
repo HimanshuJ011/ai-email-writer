@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.joshiai.emailwriter.EmailRequest;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -19,8 +17,8 @@ public class EmailGeneratorService {
 
     @Value("${gemini.url}")
     private String geminiUrl;
-    @Value("${gemini.apiKey}")
 
+    @Value("${gemini.apiKey}")
     private String geminiApiKey;
 
 
