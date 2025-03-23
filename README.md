@@ -1,1 +1,1 @@
-## AI-Powered Email Write
+## AI-Powered Email Writer
