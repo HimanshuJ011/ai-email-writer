@@ -1,22 +1,12 @@
-# Use Maven as a build stage
-FROM maven:3.8.5-openjdk-17 AS build
+FROM openjdk:17-jre-slim
+
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy source code
-COPY pom.xml .
-COPY src ./src
+# Copy the built JAR file from target directory
+COPY target/ai-email-writer-0.0.1-SNAPSHOT.jar app.jar
 
-# Build the application
-RUN mvn clean package -DskipTests
-
-# Use OpenJDK for running the app
-FROM openjdk:17-jdk-slim
-WORKDIR /app
-
-# Copy the JAR from the build stage
-COPY --from=build /app/target/*.jar app.jar
-
-# Expose the application's port
+# Expose the port your Spring Boot app runs on
 EXPOSE 8080
 
 # Run the application
